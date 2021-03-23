@@ -1,7 +1,7 @@
 <template>
   <v-card
     max-width="800"
-    class="mx-auto"
+    class="mx-auto mt-5"
   >
     <v-list
       subheader

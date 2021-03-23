@@ -1,11 +1,15 @@
 <template>
-<v-container class="mt-5">
-   <v-row
+  <v-card
+    class="mx-auto mt-5"
+    max-width="500"
+  >
+   <v-row v-if="!triche"
     justify="center"
+    class="shadow"
     >
-     <v-col class="border shadow"
+     <v-col  class="shadow"
      cols="12"
-     sm="8"
+     sm="10"
      >
         <v-form
             ref="form"
@@ -13,7 +17,9 @@
             lazy-validation
         >
             <div>
-                <h2>Vous aller commencer le QCM, il est vivement déconseiller de triché ! :p</h2>
+                <h2 class="my-5">
+                    Vous aller commencer le QCM, il est vivement déconseiller de triché ! :p
+                </h2>
 
             <v-checkbox
             v-model="checkbox"
@@ -22,37 +28,45 @@
             required
             ></v-checkbox>
             </div>
-
-            <v-btn
-            :disabled="!checkbox"
-            color="success"
-            class="mr-4"
-            @click="validate()"
-            >
-            Faire le Qcm
-            </v-btn>
-
-            <v-btn
-            color="error"
-            class="mr-4"
-            @click="retour()"
-            >
-            Retour
-            </v-btn>
+            <v-card-actions class="my-5">
+                <v-btn
+                :disabled="!checkbox"
+                color="success"
+                class="mr-4"
+                @click="validate()"
+                >
+                Faire le Qcm
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                color="error"
+                class="mr-4"
+                @click="retour()"
+                >
+                Retour
+                </v-btn>
+            </v-card-actions>
         </v-form>
       </v-col>
     </v-row>
-  </v-container>
+    <FormQuestion v-if="triche"/>
+  </v-card>
 </template>
 <script>
+import FormQuestion from '@/components/FormQuestion.vue'
   export default {
+    name:'FormQcm',
+    components: {
+        FormQuestion,
+    },
     data: () => ({
       checkbox: false,
+      triche:false,
     }),
 
     methods: {
       validate () {
-        return;
+        this.triche=true;
       },
       retour () {
         this.$router.push('/');

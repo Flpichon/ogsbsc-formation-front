@@ -3,8 +3,12 @@
     <v-app class="height">
       <AppBar />
       <v-content>
-        <v-container fluid>
-          <router-view></router-view>
+        <v-container fill-height grid-list-md text-xs-center fluid>
+          <v-layout row wrap align-center>
+            <v-flex>
+              <router-view></router-view>
+            </v-flex>
+          </v-layout>
         </v-container>
       </v-content>
     </v-app>
