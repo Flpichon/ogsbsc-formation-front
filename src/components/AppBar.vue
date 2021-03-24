@@ -74,7 +74,7 @@
             this.$router.push('/Notes');
         },
         Deconnection(){
-            this.$router.push('/FormConnexion');
+            this.$router.push('/login');
         }
     },
   }

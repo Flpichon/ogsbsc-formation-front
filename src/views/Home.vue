@@ -23,7 +23,7 @@
         </v-card-subtitle>
 
         <v-card-text class="text--primary">
-          <div>Un questionnaire est en cour.</div>
+          <div>Un questionnaire est en cours.</div>
         </v-card-text>
 
         <v-card-actions>
@@ -78,6 +78,7 @@
 
 <script>
 // @ is an alias to /src
+import axios from 'axios'
 export default {
   name: 'Home',
   components: {
@@ -93,7 +94,9 @@ export default {
       ],
     }),
     methods: {
-      GoToQcm(){
+      async GoToQcm() {
+        let user = await axios({ url: `http://localhost:8002/notes`, method: 'GET' });
+        console.log("🚀 ~ file: Home.vue ~ line 99 ~ asyncGoToQcm ~ user", user)
         this.$router.push('/FormQcm');
       },
       Notes(){
@@ -106,4 +109,8 @@ export default {
 .icon-size-80{
   font-size: 80px !important;
 }
+div {
+  font-family: roboto
+}
+
 </style>
