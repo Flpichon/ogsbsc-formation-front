@@ -95,8 +95,6 @@ export default {
     }),
     methods: {
       async GoToQcm() {
-        let user = await axios({ url: `http://localhost:8002/notes`, method: 'GET' });
-        console.log("🚀 ~ file: Home.vue ~ line 99 ~ asyncGoToQcm ~ user", user)
         this.$router.push('/FormQcm');
       },
       Notes(){

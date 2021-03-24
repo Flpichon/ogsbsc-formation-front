@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
-
+Vue.prototype.$api = 'http://localhost:8002';
 new Vue({
   vuetify,
   router,
