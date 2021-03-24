@@ -20,7 +20,10 @@
             mdi-account-circle
           </v-icon>
         </v-avatar>
-        <span class="black--text">
+        <span v-if="isLoggedIn" class="black--text">
+          Deconnexion
+        </span>
+        <span v-else class="black--text">
           Connexion
         </span>
       </div>
@@ -60,11 +63,19 @@
     </v-app-bar>
   </div>
 </template>
+
 <script>
+  import store from './../store'
   export default {
     data: () => ({
 
     }),
+    computed:{ 
+
+      isLoggedIn(){
+        return store.getters.isLoggedIn;
+        } 
+    },
     methods: {
         Compte(){
             this.$router.push('/Compte');
@@ -72,8 +83,12 @@
         Notes(){
             this.$router.push('/Notes');
         },
-        Deconnection(){
-            this.$router.push('/login');
+        async Deconnection() {
+          return store.dispatch('logout')
+            .then(() => {
+              console.log(store);
+              this.$router.push('/login');
+            })
         }
     },
   }

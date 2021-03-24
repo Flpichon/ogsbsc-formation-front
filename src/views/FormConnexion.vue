@@ -94,7 +94,8 @@
 </template>
 
 <script>
-//  import axios from 'axios';
+import axios from 'axios';
+import store from './../store';
   export default {
     data: () => ({
       show1:false,
@@ -124,25 +125,16 @@
         justify: 'center',
     }),
     methods: {
-      // validate () {
-      //   const logins = {
-      //     username: this.login,
-      //     password: this.password
-      //   }
-      //   axios({
-      //     url: `${this.$api}/findUtilisateur`,
-      //     method: 'POST',
-      //     data: logins
-      //   })
-      //   .then((res) => {
-      //     let user = res.data;
-      //     if (user) {
-      //       localStorage.setItem('userId', user.utilisateurId);
-      //       this.$router.push('/').catch(e => {});
-      //     }
-      //   })
-      //   .catch(e => console.log(e));
-      // },
+      validate () {
+        const user = {
+          username: this.login,
+          password: this.password
+        };
+        store.dispatch('login', user).then(() => {
+          console.log('yo', this.$router);
+          this.$router.push('/').catch(e => {});
+        })
+      },
     },
   }
 </script>

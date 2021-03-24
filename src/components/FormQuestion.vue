@@ -18,7 +18,7 @@
         >
             <div>
                 <h3 class="my-5">
-                    QCM en cybersécurité n°1
+                    {{qcm.enonce}}
                 </h3>
                 <hr class="w50 mx-auto"/>
                 <p class="text-justify pt-70 px-40 f11bold ">
@@ -28,10 +28,10 @@
                     >
                       <v-radio-group v-model="radioGroup">
                         <v-radio
-                          v-for="n in 3"
-                          :key="n"
-                          :label="`Radio ${n}`"
-                          :value="n"
+                          v-for="rep in qcm.Reponses"
+                          :key="rep.reponseId"
+                          :label="rep.contenu"
+                          :value="rep.contenu"
                         ></v-radio>
                       </v-radio-group>
                     </v-container>
@@ -41,7 +41,7 @@
                 <v-btn
                 color="primary"
                 class="mr-4"
-                @click="next()"
+                @click="nextQ()"
                 >
                 Valider
                 </v-btn>
@@ -52,19 +52,40 @@
   </v-card>
 </template>
 <script>
+import store from '../store';
+import axios from 'axios';
   export default {
-    next:false,
     name:'FormQestion',
     components: {
 
     },
     data: () => ({
+        next:false,
         radioGroup: 1,
+        qcm: {
+          enonce: '',
+          questions: []
+        },
+        qcms: []
     }),
 
+    async mounted() {
+      const data = await axios({
+        url: `http://localhost:8002/examen`,
+        method: 'GET',
+      });
+      const qcms = data.data;
+      this.qcms = qcms
+      this.qcm = qcms[0];
+    },
+
     methods: {
-      next(){
+      nextQ(){
         this.next = true;
+        store.commit('nextQ');
+        if (store.state.number < this.qcms.length) {
+          this.qcm = this.qcms[store.state.number];
+        }
       }
     },
   }

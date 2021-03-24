@@ -26,8 +26,8 @@
 
             <v-checkbox class="pt-85 px-5 "
             v-model="checkbox"
-            :rules="[v => !!v || 'vous devez accepté de ne pas triché pour continuer !']"
-            label="Je m'engage sur l'honneur à ne pas tricher durant l'intégralité du QCM, au risque de poursuite et d'interdiction à participer à des examens d'OGSBC Formation"
+            :rules="[v => !!v || '']"
+            label="Je m'engage sur l'honneur à ne pas tricher durant l'intégralitée du QCM, au risque de poursuite et d'interdiction à participer à des examens d'OGSBC Formation."
             required
             ></v-checkbox>
             </div>
@@ -61,7 +61,7 @@ import FormQuestion from '@/components/FormQuestion.vue'
 
     methods: {
       validate () {
-        this.triche=true;
+        this.triche = true;
       },
       retour () {
         this.$router.push('/');
