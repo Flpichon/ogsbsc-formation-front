@@ -1,25 +1,25 @@
 <template>
   <div>
-    <v-app-bar
-      color="deep-purple accent-4"
+    <v-app-bar class="blue-bar"
+      color=""
       dense
       dark
     >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
       <v-toolbar-title>Ogsbc-formation</v-toolbar-title>
 
       <v-spacer></v-spacer>
+      <div @click="Deconnection()">
+        <v-avatar color="">
+          <v-icon dark>
+            mdi-account-circle
+          </v-icon>
+        </v-avatar>
+        <span class="black--text">
+          Connexion
+        </span>
+      </div>
 
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-menu
+      <!-- <v-menu
         left
         bottom
       >
@@ -34,13 +34,6 @@
         </template>
 
         <v-list>
-          <!-- <v-list-item
-            v-for="n in 5"
-            :key="n"
-            @click="() => {}"
-          >
-            <v-list-item-title>Option {{ n }}</v-list-item-title>
-          </v-list-item> -->
           <v-list-item
             @click="Notes()"
           >
@@ -57,7 +50,7 @@
             <v-list-item-title>Déconnection</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>
+      </v-menu> -->
     </v-app-bar>
   </div>
 </template>
@@ -79,3 +72,8 @@
     },
   }
 </script>
+<style>
+.blue-bar{
+  background-color: #56CCF2 !important;
+}
+</style>

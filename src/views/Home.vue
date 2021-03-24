@@ -1,79 +1,70 @@
 <template>
+  <div>
   <v-row class="mt-5"
-  justify="center"
-  >
-    <v-col class="shadow"
-    cols="12"
-    sm="3"
+    justify="center"
     >
-    <v-card
-        class="mx-auto"
-        max-width="350"
-        min-height="270"
+      <v-col class="shadow mx-0"
+      cols="12"
+      sm="3"
       >
-    <v-icon class="mt-5 icon-size-80"
-      x-large
-      color="blue darken-2"
-    >
-      mdi-message-text
-    </v-icon>
-
-       <v-card-subtitle class="">
-          Session en cours
-        </v-card-subtitle>
-
-        <v-card-text class="text--primary">
-          <div>Un questionnaire est en cours.</div>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-btn block
-            color="orange"
-            text
-            @click="GoToQcm()"
-          >
-            Faire le QCM
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-        <v-col class="shadow"
-    cols="12"
-    sm="3"
-    >
-    <v-card
-        class="mx-auto"
-        max-width="350"
-        min-height="270"
+      <v-card @click="GoToQcm()"
+          class="mx-auto al rounded-lg green"
+          max-width="300"
+          min-height="170"
+        >
+          <v-card-text class="mx-4">
+            <span class="white--text font-26">Participer à la session du jour</span>
+          </v-card-text>
+        </v-card>
+      </v-col>
+          <v-col class="shadow mx-0"
+      cols="12"
+      sm="3"
       >
-    <v-icon class="mt-5 icon-size-80"
-      x-large
-      color="blue darken-2"
+      <v-card @click="Notes()"
+          class="mx-auto al rounded-lg cyan"
+          max-width="300"
+          min-height="170"
+        >
+          <v-card-text class="mx-4">
+            <span class="white--text font-26">Voir les résultats des sessions précédentes</span>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+      <v-row class="mt-5"
+    justify="center"
     >
-      mdi-message-text
-    </v-icon>
-
-        <v-card-subtitle class="">
-          Voir les résultats
-        </v-card-subtitle>
-
-        <v-card-text class="text--primary">
-          <div>Notes des QCM</div>
-
-        </v-card-text>
-
-        <v-card-actions>
-          <v-btn block
-            color="orange"
-            text
-            @click="Notes()"
-          >
-            Voir
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+      <v-col class="shadow mx-0"
+      cols="12"
+      sm="3"
+      >
+      <v-card @click="Compte()"
+          class="mx-auto al rounded-lg pink"
+          max-width="300"
+          min-height="170"
+        >
+          <v-card-text class="mx-4">
+            <span class="white--text font-26">Modifier mon profil</span>
+          </v-card-text>
+        </v-card>
+      </v-col>
+          <v-col class="shadow mx-0"
+      cols="12"
+      sm="3"
+      >
+      <v-card @click="Deconnection()"
+          class="mx-auto al rounded-lg violet"
+          max-width="300"
+          min-height="170"
+        >
+          <v-card-text class="mx-4">
+            <span class="white--text font-26">Déconnexion</span>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -99,6 +90,12 @@ export default {
       },
       Notes(){
         this.$router.push('/Notes');
+      },
+      Compte(){
+          this.$router.push('/Compte');
+      },
+      Deconnection(){
+          this.$router.push('/login');
       }
     },
 }
@@ -110,5 +107,25 @@ export default {
 div {
   font-family: roboto
 }
-
+.al {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.cyan {
+  background-color: #42A9B7;
+}
+.green{
+  background-color: #42B786;
+}
+.pink{
+  background-color: #B7427A;
+}
+.violet{
+  background-color: #7642B7 !important;
+}
+.font-26{
+  font-size: 26px !important;
+  text-shadow: 1px 1px 2px #000000;
+}
 </style>

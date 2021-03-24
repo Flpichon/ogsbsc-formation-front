@@ -1,72 +1,120 @@
 <template>
-  <v-card
-    max-width="800"
-    class="mx-auto mt-5"
-  >
-    <v-list
-      subheader
+  <v-row class="mt-5"
+    justify="center"
     >
-      <v-subheader inset>Notes</v-subheader>
-
-      <v-list-item
-        v-for="folder in folders"
-        :key="folder.title"
+      <v-col class="shadow mx-0"
+      cols="12"
+      sm="9"
       >
-        <v-list-item-avatar>
-          <v-icon
-            class="grey lighten-1"
-            dark
-          >
-            mdi-folder
-          </v-icon>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title v-text="folder.title"></v-list-item-title>
-
-          <v-list-item-subtitle v-text="folder.subtitle"></v-list-item-subtitle>
-        </v-list-item-content>
-
-        <v-list-item-action>
-            <span v-text="folder.note +'/20'"></span>
-        </v-list-item-action>
-      </v-list-item>
-
-      <!-- <v-divider inset></v-divider> -->
-    </v-list>
-      <v-btn @click="Retour()"
-        color="orange"
-        text
-      >
-        Retour
-      </v-btn>
-  </v-card>
+        <v-data-table
+          :headers="headers"
+          :items="QCM"
+          :items-per-page="5"
+          class="elevation-1"
+          :footerProps="{itemsPerPageText}"
+        >
+          <template v-slot:top>
+            <v-toolbar
+              flat
+            >
+              <v-toolbar-title>résultats</v-toolbar-title>
+              <v-divider
+                class="mx-4"
+                inset
+                vertical
+              ></v-divider>
+              <v-spacer></v-spacer>
+              <v-dialog
+                v-model="dialog"
+                max-width="500px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    color="primary"
+                    dark
+                    class="mb-2"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    Filtres
+                  </v-btn>
+                </template>
+              </v-dialog>
+            </v-toolbar>
+          </template>
+            <template v-slot:item.Voir="{ item }">
+              <v-icon
+                small
+                class="mr-2"
+                @click="retour(item)"
+              >
+                mdi-pencil
+              </v-icon>
+            </template>
+        </v-data-table>
+      </v-col>
+  </v-row>
 </template>
 <script>
   export default {
-    data: () => ({
-      folders: [
-        {
-          subtitle: 'Jan 9, 2021',
-          title: 'dst cybersécu 1',
-          note:'8'
-        },
-        {
-          subtitle: 'Jan 17, 2021',
-          title: 'qcm surprise cybersécu',
-          note:'4'
-        },
-        {
-          subtitle: 'Jan 28, 2021',
-          title: 'qcm cybersécu 1',
-          note:'16'
-        },
-      ],
-    }),
+    data () {
+      return {
+        itemsPerPageText:"lignes par page",
+        dialog:'',
+        rowPageText: 'éléments par page:',
+        headers: [
+          { text: 'Id', value: 'Id' },
+          { text: 'Date', value: 'Date' },
+          { text: 'Difficulté', value: 'Difficulté' },
+          { text: 'Nom QCM', value: 'NomQCM' },
+          { text: 'Note', value: 'Note' },
+          { text: 'Commentaire', value: 'Commentaire' },
+          { text: 'Voir mes réponses', value: 'Voir' },
+        ],
+        QCM: [
+          {
+            Id: '120',
+            Date: '25/11/2018',
+            Difficulté: 'Expert',
+            NomQCM: 'Linux',
+            Note: '8/20',
+            Commentaire: 'A revoir',
+            Voir:'↗',
+          },
+          {
+            Id: '121',
+            Date: '02/12/2018',
+            Difficulté: 'Débutant',
+            NomQCM: 'Php et Mysql',
+            Note: '14/20',
+            Commentaire: 'Bien',
+            Voir:'↗',
+          },
+          {
+            Id: '122',
+            Date: '04/06/2019',
+            Difficulté: 'Intermédiaire',
+            NomQCM: 'Deep learning',
+            Note: '11/20',
+            Commentaire: 'Peu mieux faire',
+            Voir:'↗',
+          },
+          {
+            Id: '123',
+            Date: '10/02/2019',
+            Difficulté: 'Expert',
+            NomQCM: 'Macro',
+            Note: '10/20',
+            Commentaire: 'Trop juste',
+            Voir:'↗',
+          },
+        ],
+      }
+    },
     methods: {
-        Retour(){
-            this.$router.push('/');
-        },
+      retour(){
+        return;
+      },
     },
   }
 </script>
