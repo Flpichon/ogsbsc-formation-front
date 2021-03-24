@@ -5,7 +5,13 @@
       dense
       dark
     >
-      <v-toolbar-title>Ogsbc-formation</v-toolbar-title>
+      <v-toolbar-title>
+        <v-img
+          max-height="170"
+          max-width="160"
+          src="../img/logo.png"
+        ></v-img>
+      </v-toolbar-title>
 
       <v-spacer></v-spacer>
       <div @click="Deconnection()">
