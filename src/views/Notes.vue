@@ -11,7 +11,7 @@
           :items="QCM"
           :items-per-page="5"
           class="elevation-1"
-          :footerProps="{itemsPerPageText}"
+          :footerProps="{itemsPerPageText,pageText}"
         >
           <template v-slot:top>
             <v-toolbar
@@ -28,13 +28,10 @@
                 v-model="dialog"
                 max-width="500px"
               >
-                <template v-slot:activator="{ on, attrs }">
+                <template v-slot:activator="{}">
                   <v-btn
-                    color="primary"
-                    dark
                     class="mb-2"
-                    v-bind="attrs"
-                    v-on="on"
+                    @click="filtre()"
                   >
                     Filtres
                   </v-btn>
@@ -43,13 +40,15 @@
             </v-toolbar>
           </template>
             <template v-slot:item.Voir="{ item }">
-              <v-icon
-                small
-                class="mr-2"
-                @click="retour(item)"
-              >
-                mdi-pencil
-              </v-icon>
+              <div class="al">
+                <v-icon
+                  large
+                  class="mr-2 al"
+                  @click="retour(item)"
+                >
+                  mdi-arrow-top-right
+                </v-icon>
+              </div>
             </template>
         </v-data-table>
       </v-col>
@@ -59,6 +58,7 @@
   export default {
     data () {
       return {
+        pageText:'page suivante',
         itemsPerPageText:"lignes par page",
         dialog:'',
         rowPageText: 'éléments par page:',
@@ -115,6 +115,16 @@
       retour(){
         return;
       },
+      filtre(){
+        return;
+      }
     },
   }
 </script>
+<style>
+.al {
+  justify-content: center !important;
+  align-items: center !important;
+}
+  
+</style>

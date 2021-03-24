@@ -79,6 +79,13 @@
               @click="validate">Valider</v-btn>
             </div>
             </v-col>
+            <v-col class="mt-5 text-center" 
+            cols="12" 
+            sm="8">
+              <div class="my-0">
+                <p>Mot de passe oublié ?</p>
+              </div>
+            </v-col>
           </v-row>
          </v-col>
       </v-row>
