@@ -17,7 +17,7 @@
               cols="9"
               md="8"
             >
-            <p class="display-1 indigo--text font-weight-bold">Connexion</p>
+            <p class="display-1 cyan-custom font-weight-bold">Connexion</p>
             </v-col>
           </v-row>
           <v-row
@@ -156,4 +156,7 @@
 //     -moz-box-shadow: 10px 4px 51px -3px rgba(0,0,0,0.75);
 //     box-shadow: 10px 4px 51px -3px rgba(0,0,0,0.75);
 //  }
+.cyan-custom {
+  color: #42A9B7 !important;
+}
 </style>

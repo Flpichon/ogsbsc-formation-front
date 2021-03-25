@@ -94,7 +94,7 @@
           <v-text-field
             v-model="message2"
             solo
-            label="*******@gmail.com"
+            label="dupont.jean@gmail.com"
             hide-details="auto"
           ></v-text-field>
         </v-col>
@@ -146,7 +146,7 @@
         >
         <v-select
           :items="items"
-          label=". . ."
+          label="Etudiant"
           solo
         ></v-select>
         </v-col>
@@ -181,9 +181,9 @@
       message2:'',
       message3:'',
       message4:'',
-      date: null,
+      date: '1996-02-18',
       menu: false,
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+      items: ['Etudiant', 'Formateur'],
     }),
     watch: {
       menu (val) {

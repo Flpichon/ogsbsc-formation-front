@@ -3,28 +3,26 @@
   <v-row class="mt-5"
     justify="center"
     >
-      <v-col class="shadow mx-0"
+      <v-col class="shadow mx-2"
       cols="12"
       sm="3"
       >
       <v-card @click="GoToQcm()"
           class="mx-auto al rounded-lg green"
-          max-width="300"
-          min-height="170"
+          min-height="190"
         >
           <v-card-text class="mx-4">
             <span class="white--text font-26">Participer à la session du jour</span>
           </v-card-text>
         </v-card>
       </v-col>
-          <v-col class="shadow mx-0"
+          <v-col class="shadow mx-2"
       cols="12"
       sm="3"
       >
       <v-card @click="Notes()"
           class="mx-auto al rounded-lg cyan"
-          max-width="300"
-          min-height="170"
+          min-height="190"
         >
           <v-card-text class="mx-4">
             <span class="white--text font-26">Voir les résultats des sessions précédentes</span>
@@ -35,28 +33,26 @@
       <v-row class="mt-5"
     justify="center"
     >
-      <v-col class="shadow mx-0"
+      <v-col class="shadow mx-2"
       cols="12"
       sm="3"
       >
       <v-card @click="Compte()"
           class="mx-auto al rounded-lg pink"
-          max-width="300"
-          min-height="170"
+          min-height="190"
         >
           <v-card-text class="mx-4">
             <span class="white--text font-26">Modifier mon profil</span>
           </v-card-text>
         </v-card>
       </v-col>
-          <v-col class="shadow mx-0"
+          <v-col class="shadow mx-2"
       cols="12"
       sm="3"
       >
       <v-card @click="Deconnection()"
           class="mx-auto al rounded-lg violet"
-          max-width="300"
-          min-height="170"
+          min-height="190"
         >
           <v-card-text class="mx-4">
             <span class="white--text font-26">Déconnexion</span>
@@ -125,7 +121,7 @@ div {
   background-color: #7642B7 !important;
 }
 .font-26{
-  font-size: 26px !important;
+  font-size: 28px !important;
   text-shadow: 1px 1px 2px #000000;
 }
 </style>

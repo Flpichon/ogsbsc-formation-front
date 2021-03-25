@@ -5,7 +5,9 @@
       dense
       dark
     >
-      <v-toolbar-title>
+      <v-toolbar-title
+      @click="Home()"
+      >
         <v-img
           max-height="170"
           max-width="160"
@@ -74,6 +76,9 @@
         },
         Deconnection(){
             this.$router.push('/login');
+        },
+        Home(){
+            this.$router.push('/');
         }
     },
   }
