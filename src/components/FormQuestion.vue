@@ -31,6 +31,7 @@
                     {{qcm.enonce}}
                 </h3>
                 <hr class="w50 mx-auto"/>
+                <div>{{getNumber}} / {{qcms.length}}</div>
                 <p class="text-justify pt-70 px-40 f11bold ">
                     <v-container
                       class="px-0"
@@ -95,7 +96,11 @@ import axios from 'axios';
       this.qcms = qcms
       this.qcm = qcms[0];
     },
-
+    computed: {
+      getNumber() {
+        return store.state.number + 1;
+      }
+    },
     methods: {
       nextQ() {
         this.next = true;
@@ -118,13 +123,13 @@ import axios from 'axios';
       timer() {
         this.interval = setInterval(() => {
           if ( this.progress < 1 && !store.state.testend) {
-            this.progress += 0.05;
+            this.progress += 0.0125;
             +this.progress.toFixed();
           } else {
             this.nextQ();
             this.progress = 0;
           }
-        }, 1000);
+        }, 250);
       }
     },
   }

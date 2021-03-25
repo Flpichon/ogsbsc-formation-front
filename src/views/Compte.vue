@@ -21,7 +21,7 @@
           <v-text-field
             v-model="message"
             solo
-            label="Dupont"
+            label="Le Pichon"
             hide-details="auto"
           ></v-text-field>
         </v-col>
@@ -38,7 +38,7 @@
           <v-text-field
             v-model="message1"
             solo
-            label="Jean"
+            label="Franck"
             hide-details="auto"
           ></v-text-field>
         </v-col>
@@ -94,7 +94,7 @@
           <v-text-field
             v-model="message2"
             solo
-            label="dupont.jean@gmail.com"
+            label="franck.lepichon@orange.fr"
             hide-details="auto"
           ></v-text-field>
         </v-col>
@@ -138,7 +138,7 @@
           cols="12"
           sm="6"
         >
-        <p class="text-left">Status</p>
+        <p class="text-left">Statut</p>
         </v-col>
         <v-col class="py-1"
           cols="12"
@@ -181,7 +181,7 @@
       message2:'',
       message3:'',
       message4:'',
-      date: '1996-02-18',
+      date: '1993-12-14',
       menu: false,
       items: ['Etudiant', 'Formateur'],
     }),

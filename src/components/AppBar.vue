@@ -16,8 +16,8 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-      <div @click="Deconnection()">
-        <v-avatar color="">
+      <a @click="Deconnection()">
+        <v-avatar v-if="isLoggedIn" color="">
           <v-icon dark>
             mdi-account-circle
           </v-icon>
@@ -25,10 +25,7 @@
         <span v-if="isLoggedIn" class="black--text">
           Deconnexion
         </span>
-        <span v-else class="black--text">
-          Connexion
-        </span>
-      </div>
+      </a>
 
       <!-- <v-menu
         left
@@ -91,7 +88,6 @@
         async Deconnection() {
           return store.dispatch('logout')
             .then(() => {
-              console.log(store);
               this.$router.push('/login');
             })
         }

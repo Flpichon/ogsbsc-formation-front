@@ -39,7 +39,7 @@
               </v-dialog>
             </v-toolbar>
           </template>
-            <template v-slot:item.Voir="{ item }">
+            <template v-slot:[`item.Voir`]="{ item }">
               <div class="al">
                 <v-icon
                   large
@@ -55,6 +55,8 @@
   </v-row>
 </template>
 <script>
+import axios from 'axios';
+import store from '../store';
   export default {
     data () {
       return {
@@ -109,7 +111,31 @@
             Voir:'↗',
           },
         ],
+        resultats: [],
       }
+    },
+    async mounted() {
+      const userId = store.state.userId;
+      const data = await axios({
+        url: `http://localhost:8002/get_resultats`,
+        method: 'POST',
+        data: {userId}
+      });
+      const resultats = data.data;
+      this.resultats = resultats;
+      const formated_resultats = resultats.map(resultat => {
+        const Note = `${resultat.Reponses.length} / ${resultat.nbr}`;
+        const Date = resultat.updatedAt;
+        const sbtr = Date.toString().split('-');
+        const ok = sbtr[2].split('T')[0] + '/' + sbtr[1] + '/' + sbtr[0];
+        const Id = resultat.resultatId;
+        const Difficulté = 'Débutant';
+        const NomQCM = resultat.titre || 'Cybersecu' + Math.round(Math.random() * 20);
+        const Commentaire = 'NR';
+        const Voir = '↗';
+        return {Id, Date: ok, Difficulté, NomQCM, Note, Commentaire, Voir};
+      });
+      this.QCM = formated_resultats;
     },
     methods: {
       retour(){

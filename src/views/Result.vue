@@ -26,10 +26,18 @@
               <v-spacer></v-spacer>
             </v-toolbar>
           </template>
+          <template v-slot:[`item.Reussite`]="{item}">
+            <span
+              :class="getColor(item.Reussite)"
+              dark
+            >
+            {{ item.Reussite }}
+            </span>
+          </template>
         </v-data-table>
           <div class="font-30 pt-120">
             <span class="pa-5 color-note">
-              Note : {{bonnesR}} / {{QCM.length}}
+              Note : {{bonnesR.length}} / {{QCM.length}}
             </span>
             </div>
             <div class="pt-80">
@@ -54,16 +62,16 @@ import store from '../store'
         dialog:'',
         rowPageText: 'éléments par page:',
         headers: [
-          { text: 'Numéro', value: 'Numéro' },
-          { text: 'Réussite', value: 'Réussite' },
-          { text: 'Enoncé', value: 'Enoncé' },
-          { text: 'Bonne réponse', value: 'BReponse' },
-          { text: 'Votre réponse', value: 'VReponse' }
+          { text: 'Numéro', value: 'Numéro', sortable: false },
+          { text: 'Reussite', value: 'Reussite', sortable: false,},
+          { text: 'Enoncé', value: 'Enoncé', sortable: false },
+          { text: 'Bonne réponse', value: 'BReponse', sortable: false },
+          { text: 'Votre réponse', value: 'VReponse', sortable: false }
         ],
         QCM: [
         ],
         rawQcms: [],
-        bonnesR: 0
+        bonnesR: []
       }
     },
     async mounted() {
@@ -86,16 +94,34 @@ import store from '../store'
           ok = false;
         }
         if (ok) {
-          this.bonnesR++;
+          this.bonnesR.push(BReponse);
         }
         this.QCM.push({
           Numéro: rawQcm.qcmId,
-          Réussite: ok ? 'Oui' : 'Non',
+          Reussite: ok ? 'Oui' : 'Non',
           Enoncé: rawQcm.enonce,
           VReponse: VReponse.contenu || 'Non répondu',
           BReponse: BReponse.contenu
-        })
-      })
+        });
+      });
+      if (this.QCM.length) {
+        const ids = this.bonnesR.map(rep => rep.reponseId);
+        const userId = store.state.userId;
+        const nbr = this.rawQcms.length;
+        console.log('yo');
+        await axios({
+          url: `http://localhost:8002/resultats`,
+          method: 'POST',
+          data: {
+            ids,
+            userId,
+            nbr
+          }
+        });
+      }
+        this.rawQcms = [];
+        this.QCM = [];
+        this.bonnesR = [];
     },
     methods: {
       Retour(){
@@ -104,6 +130,13 @@ import store from '../store'
       filtre(){
         return;
       },
+      getColor(resultat) {
+        if (resultat === 'Oui') {
+          return 'green--text';
+        } else {
+          return 'red--text';
+        }
+      }
     },
   }
 </script>
