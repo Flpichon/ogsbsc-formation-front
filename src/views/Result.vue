@@ -29,7 +29,7 @@
         </v-data-table>
           <div class="font-30 pt-120">
             <span class="pa-5 color-note">
-              Note : 11/20
+              Note : {{bonnesR}} / {{QCM.length}}
             </span>
             </div>
             <div class="pt-80">
@@ -44,6 +44,8 @@
   </v-row>
 </template>
 <script>
+import axios from 'axios';
+import store from '../store'
   export default {
     data () {
       return {
@@ -55,17 +57,45 @@
           { text: 'Numéro', value: 'Numéro' },
           { text: 'Réussite', value: 'Réussite' },
           { text: 'Enoncé', value: 'Enoncé' },
-          { text: 'Réponse', value: 'Reponse' },
+          { text: 'Bonne réponse', value: 'BReponse' },
+          { text: 'Votre réponse', value: 'VReponse' }
         ],
         QCM: [
-          {
-            Numéro: '1',
-            Réussite: 'Oui',
-            Enoncé: 'Ipsum',
-            Reponse: '4',
-          },
         ],
+        rawQcms: [],
+        bonnesR: 0
       }
+    },
+    async mounted() {
+      const data = await axios({
+        url: `http://localhost:8002/examen`,
+        method: 'GET',
+      });
+      const qcms = data.data;
+      this.rawQcms = qcms;
+      console.log(store.state);
+      this.rawQcms.forEach(rawQcm => {
+        const VReponse = rawQcm.Reponses.find(reponse => {
+          return store.state.resultats.some(res => res === reponse.reponseId)
+        }) || {};
+        const BReponse = rawQcm.Reponses.find(reponse => !!reponse.isValid);
+        let ok;
+        if (!!VReponse.reponseId && !!BReponse.reponseId) {
+          ok = VReponse.reponseId === BReponse.reponseId;
+        } else {
+          ok = false;
+        }
+        if (ok) {
+          this.bonnesR++;
+        }
+        this.QCM.push({
+          Numéro: rawQcm.qcmId,
+          Réussite: ok ? 'Oui' : 'Non',
+          Enoncé: rawQcm.enonce,
+          VReponse: VReponse.contenu || 'Non répondu',
+          BReponse: BReponse.contenu
+        })
+      })
     },
     methods: {
       Retour(){
@@ -73,7 +103,7 @@
       },
       filtre(){
         return;
-      }
+      },
     },
   }
 </script>

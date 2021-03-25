@@ -71,6 +71,10 @@ router.beforeEach(async (to, from, next) => {
       next('/');
       return;
   }
+  console.log("🚀 ~ file: index.js ~ line 75 ~ router.beforeEach ~ store.state.examenEnCour", store.state.examenEnCours)
+  if (store.state.examenEnCours) {
+    return;
+  }
   if (to.matched.some(record => record.meta.requiresAuth)) {
       if (store.getters.isLoggedIn) {
         next();

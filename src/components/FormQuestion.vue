@@ -16,6 +16,16 @@
             v-model="next"
             lazy-validation
         >
+          <loading-progress
+          :progress="progress"
+          :indeterminate="indeterminate"
+          :counter-clockwise="counterClockwise"
+          :hide-background="hideBackground"
+          shape="line"
+          size="200"
+          width="200"
+          height="6"
+          />
             <div>
                 <h3 class="my-5">
                     {{qcm.enonce}}
@@ -31,7 +41,7 @@
                           v-for="rep in qcm.Reponses"
                           :key="rep.reponseId"
                           :label="rep.contenu"
-                          :value="rep.contenu"
+                          :value="rep.reponseId"
                         ></v-radio>
                       </v-radio-group>
                     </v-container>
@@ -61,15 +71,22 @@ import axios from 'axios';
     },
     data: () => ({
         next:false,
-        radioGroup: 1,
+        radioGroup: '',
         qcm: {
           enonce: '',
           questions: []
         },
-        qcms: []
+        qcms: [],
+        indeterminate: false,
+        progress: 0,
+        counterClockwise: false,
+        hideBackground: false,
+        interval: ''
     }),
 
     async mounted() {
+      store.commit('setExamen', {statut: true});
+      this.timer();
       const data = await axios({
         url: `http://localhost:8002/examen`,
         method: 'GET',
@@ -80,12 +97,34 @@ import axios from 'axios';
     },
 
     methods: {
-      nextQ(){
+      nextQ() {
         this.next = true;
+        if (this.radioGroup) {
+          store.commit('addReponse', {reponseId: this.radioGroup});
+        } else {
+          store.commit('addReponse', {reponseId: false});
+        }
         store.commit('nextQ');
+        this.progress = 0;
         if (store.state.number < this.qcms.length) {
           this.qcm = this.qcms[store.state.number];
+        } else {
+          clearInterval(this.interval);
+          store.commit('endTest');
+          store.commit('setExamen', {statut: false});
+          this.$router.push('/Result');
         }
+      },
+      timer() {
+        this.interval = setInterval(() => {
+          if ( this.progress < 1 && !store.state.testend) {
+            this.progress += 0.05;
+            +this.progress.toFixed();
+          } else {
+            this.nextQ();
+            this.progress = 0;
+          }
+        }, 1000);
       }
     },
   }
@@ -120,4 +159,5 @@ import axios from 'axios';
   border-radius: 4% !important;
   box-shadow: 0px 3px 20px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%) !important;
 }
+
 </style>

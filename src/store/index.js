@@ -9,7 +9,10 @@ export default new Vuex.Store({
     status: '',
     token: localStorage.getItem('token') || null,
     userId: localStorage.getItem('userId') || '',
-    number: 0
+    number: 0,
+    testend: false,
+    resultats : [],
+    examenEnCours: false
   },
   mutations: {
     auth_request(state) {
@@ -30,6 +33,15 @@ export default new Vuex.Store({
     },
     nextQ(state) {
       state.number += 1;
+    },
+    endTest(state) {
+      state.testend = true
+    },
+    addReponse(state, {reponseId}) {
+      state.resultats.push(reponseId);
+    },
+    setExamen(state, {statut}) {
+      state.examenEnCours = statut;
     }
   },
   actions: {
@@ -78,5 +90,7 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
+    isended: state => state.testend,
+    numberQ: state => state.number
   }
 })

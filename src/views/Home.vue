@@ -8,7 +8,8 @@
       sm="3"
       >
       <v-card @click="GoToQcm()"
-          class="mx-auto al rounded-lg green"
+          class="mx-auto al rounded-lg"
+          :class="ended ? 'disabled' : 'green'"
           min-height="190"
         >
           <v-card-text class="mx-4">
@@ -65,12 +66,14 @@
 
 <script>
 // @ is an alias to /src
+import store from '../store';
 import axios from 'axios'
 export default {
   name: 'Home',
   components: {
   },
   data: () => ({
+    ended: false,
     valid: false,
     justify: [
         'start',
@@ -80,6 +83,10 @@ export default {
         'space-between',
       ],
     }),
+    mounted() {
+      console.log(store.state);
+      this.ended = store.state.testend;
+    },
     methods: {
       async GoToQcm() {
         this.$router.push('/FormQcm');
@@ -90,8 +97,12 @@ export default {
       Compte(){
           this.$router.push('/Compte');
       },
-      Deconnection(){
-          this.$router.push('/login');
+      async Deconnection(){
+          return store.dispatch('logout')
+            .then(() => {
+              console.log(store);
+              this.$router.push('/login');
+            })
       }
     },
 }
@@ -123,5 +134,10 @@ div {
 .font-26{
   font-size: 28px !important;
   text-shadow: 1px 1px 2px #000000;
+}
+
+.disabled {
+  pointer-events: none;
+  background-color: dimgray !important;
 }
 </style>

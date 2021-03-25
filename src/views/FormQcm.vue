@@ -58,7 +58,8 @@ import FormQuestion from '@/components/FormQuestion.vue'
       checkbox: false,
       triche:false,
     }),
-
+    mounted() {
+    },
     methods: {
       validate () {
         this.triche = true;

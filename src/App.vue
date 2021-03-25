@@ -2,7 +2,7 @@
   <div id="app">
     <v-app class="height">
       <AppBar />
-      <v-content>
+      <v-main>
         <v-container fill-height grid-list-md text-xs-center fluid>
           <v-layout row wrap align-center>
             <v-flex>
@@ -10,7 +10,7 @@
             </v-flex>
           </v-layout>
         </v-container>
-      </v-content>
+      </v-main>
     </v-app>
   </div>
 </template>
